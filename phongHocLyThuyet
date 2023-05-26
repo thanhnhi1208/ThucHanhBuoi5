@@ -1,0 +1,46 @@
+package bai1;
+
+import java.util.Scanner;
+
+public class phLyThuyet extends phongHoc {
+	private boolean mayChieu;
+
+	public phLyThuyet() {
+
+	}
+
+	public phLyThuyet(String maPhong, int dayNha, double dienTich, int soBongDen, Boolean mayChieu) {
+		super(maPhong, dayNha, dienTich, soBongDen);
+		this.mayChieu = mayChieu;
+	}
+
+	public boolean getMayChieu() {
+		return mayChieu;
+	}
+
+	public void setMayChieu(Boolean mayChieu) {
+		this.mayChieu = mayChieu;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "phLyThuyet [mayChieu=" + mayChieu + "]";
+	}
+
+	public void nhap() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("nhập máy chiếu trong phòng");
+		int mayChieu=sc.nextInt();
+	}
+
+	@Override
+	public boolean datChuan() {
+
+		if (getMayChieu() == true && super.datChuanPhongHoc() == true) {
+			return true;
+		}
+		return false;
+
+	}
+
+}
