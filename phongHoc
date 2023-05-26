@@ -1,0 +1,85 @@
+package bai1;
+
+import java.util.Objects;
+import java.util.Scanner;
+
+public abstract class phongHoc {
+	private String maPhong;
+	private int dayNha;
+	private double dienTich;
+	private int soBongDen;
+
+	public phongHoc() {
+	}
+
+	public phongHoc(String maPhong, int dayNha, double dienTich, int soBongDen) {
+		this.maPhong = maPhong;
+		this.dayNha = dayNha;
+		this.dienTich = dienTich;
+		this.soBongDen = soBongDen;
+	}
+
+	public String getMaPhong() {
+		return maPhong;
+	}
+
+	public void setMaPhong(String maPhong) {
+		this.maPhong = maPhong;
+	}
+
+	public int getDayNha() {
+		return dayNha;
+	}
+
+	public void setDayNha(int dayNha) {
+		this.dayNha = dayNha;
+	}
+
+	public double getDienTich() {
+		return dienTich;
+	}
+
+	public void setDienTich(double dienTich) {
+		this.dienTich = dienTich;
+	}
+
+	public int getSoBongDen() {
+		return soBongDen;
+	}
+
+	public void setSoBongDen(int soBongDen) {
+		this.soBongDen = soBongDen;
+	}
+
+	@Override
+	public String toString() {
+		return "phongHoc [maPhong=" + maPhong + ", dayNha=" + dayNha + ", dienTich=" + dienTich + ", soBongDen="
+				+ soBongDen + "]";
+	}
+
+	public abstract boolean datChuan();
+
+	public void nhap() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("nhập mã phòng");
+		this.setMaPhong(sc.nextLine());
+		System.out.println("nhập dãy nhà");
+		this.setMaPhong(sc.nextLine());
+		System.out.println("nhập diện tích");
+		this.setDienTich(sc.nextDouble());
+		System.out.println("nhập số bóng đèn");
+		this.setSoBongDen(sc.nextInt());
+	}
+
+	public boolean datChuanPhongHoc() {
+		if (getDienTich() / getSoBongDen() >= 10) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	
+
+}
