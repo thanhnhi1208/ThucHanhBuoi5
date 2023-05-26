@@ -1,0 +1,70 @@
+package bai1;
+
+import java.util.Scanner;
+
+public class phThiNghiem extends phongHoc {
+	private String chuyenNganh;
+	private int sucChua;
+	private boolean coBonRuaKo;
+
+	public phThiNghiem() {
+
+	}
+
+	public phThiNghiem(String maPhong, int dayNha, double dienTich, int soBongDen, String chuyenNganh, int sucChua,
+			Boolean coBonRuaKo) {
+		super(maPhong, dayNha, dienTich, soBongDen);
+		this.chuyenNganh = chuyenNganh;
+		this.sucChua = sucChua;
+		this.coBonRuaKo = coBonRuaKo;
+	}
+
+	public String getChuyenNganh() {
+		return chuyenNganh;
+	}
+
+	public void setChuyenNganh(String chuyenNganh) {
+		this.chuyenNganh = chuyenNganh;
+	}
+
+	public int getSucChua() {
+		return sucChua;
+	}
+
+	public void setSucChua(int sucChua) {
+		this.sucChua = sucChua;
+	}
+
+	public boolean getCoBonRuaKo() {
+		return coBonRuaKo;
+	}
+
+	public void setCoBonRuaKo(Boolean coBonRuaKo) {
+		this.coBonRuaKo = coBonRuaKo;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "phThiNghiem [chuyenNganh=" + chuyenNganh + ", sucChua=" + sucChua + ", coBonRuaKo="
+				+ coBonRuaKo + "]";
+	}
+
+	public void nhap() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("nhập chuyên ngành");
+		this.setChuyenNganh(sc.nextLine());
+		System.out.println("nhập sức chứa của phòng");
+		this.setSucChua(sc.nextInt());
+		System.out.println("nhập bồn rửa ");
+		String bonRua = sc.nextLine();
+	}
+
+	@Override
+	public boolean datChuan() {
+		if (getCoBonRuaKo() == true && super.datChuanPhongHoc() == true) {
+			return true;
+		}
+		return false;
+	}
+
+}
