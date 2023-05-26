@@ -1,0 +1,50 @@
+package bai1;
+
+import java.util.Scanner;
+
+public class phMayTinh extends phongHoc {
+	private int mayTinh;
+
+	public phMayTinh() {
+
+	}
+
+	public phMayTinh(String maPhong, int dayNha, double dienTich, int soBongDen, int mayTinh) {
+		super(maPhong, dayNha, dienTich, soBongDen);
+		this.mayTinh = mayTinh;
+	}
+
+	public int getMayTinh() {
+		return mayTinh;
+	}
+
+	public void setMayTinh(int mayTinh) {
+		this.mayTinh = mayTinh;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "phMayTinh [mayTinh=" + mayTinh + "]";
+	}
+
+	public void nhap() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("nhập số lượt máy tính");
+		this.setMayTinh(sc.nextInt());
+	}
+	
+	public void suaSoMayTinh() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("nhập lại số máy tính cần sửa");
+		this.setSoBongDen(sc.nextInt());
+	}
+
+	@Override
+	public boolean datChuan() {
+		if (super.getDienTich() / getMayTinh() >= 1.5 && super.datChuanPhongHoc() == true) {
+			return true;
+		}
+		return false;
+	}
+
+}
