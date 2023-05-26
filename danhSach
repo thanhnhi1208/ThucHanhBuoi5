@@ -1,0 +1,202 @@
+package bai1;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class danhSach {
+	public ArrayList<phongHoc> list;
+
+	public danhSach() {
+		list = new ArrayList<phongHoc>();
+	}
+
+	public danhSach(ArrayList<phongHoc> list) {
+
+		this.list = list;
+	}
+
+	public boolean them(phongHoc ph) {
+		for (phongHoc phongHoc : list) {
+			if (phongHoc.getMaPhong().equals(ph.getMaPhong())) {
+				return false;
+			}
+		}
+		this.list.add(ph);
+		return true;
+	}
+
+	public boolean timKhiBietMaPhong(phongHoc ph) {
+		for (phongHoc phongHoc : list) {
+			if (phongHoc.getMaPhong().equals(ph.getMaPhong())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void xuat() {
+		for (phongHoc phongHoc : list) {
+			System.out.println(phongHoc);
+		}
+	}
+
+	public void xuatCacPhongDatChuan() {
+		for (phongHoc phongHoc : list) {
+			if (phongHoc.datChuanPhongHoc()) {
+				System.out.println(phongHoc);
+			}
+		}
+		System.out.println("không có phòng đạt chuẩn");
+
+	}
+
+	public void sapXepTangDanTheoDayNha() {
+		Collections.sort(this.list, new Comparator<phongHoc>() {
+
+			@Override
+			public int compare(phongHoc o1, phongHoc o2) {
+				if (o1.getDayNha() < o2.getDayNha()) {
+					return 1;
+				} else if (o1.getDayNha() > o2.getDayNha()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+
+		});
+	}
+
+	public void sapXepGiamDanTheoDienTich() {
+		Collections.sort(this.list, new Comparator<phongHoc>() {
+
+			@Override
+			public int compare(phongHoc p1, phongHoc p2) {
+				if (p1.getDienTich() > p2.getDienTich()) {
+					return 1;
+				} else if (p1.getDienTich() < p2.getDienTich()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+	}
+
+	public void sapXepTangDanTheoSoBongDen() {
+		Collections.sort(this.list, new Comparator<phongHoc>() {
+
+			@Override
+			public int compare(phongHoc h1, phongHoc h2) {
+				if (h1.getSoBongDen() < h2.getSoBongDen()) {
+					return 1;
+				} else if (h1.getSoBongDen() < h2.getSoBongDen()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+	}
+
+	public void suaSoMay(phMayTinh phmt) {
+		for (phongHoc phongHoc : list) {
+			if (phongHoc.getMaPhong().equals(phmt.getMaPhong())) {
+				phmt.suaSoMayTinh();
+			}
+		}
+		System.out.println("không có mã trong danh sách");
+	}
+
+	public void xoaPhongHoc() {
+
+	}
+
+	public int inTongPhongHoc() {
+		return this.list.size();
+	}
+
+	public void inPhongCó60May(phMayTinh phmt) {
+		for (phongHoc phongHoc : list) {
+			if (phmt.getMayTinh() == 60) {
+				System.out.println(phongHoc);
+			} else {
+				System.out.println("không có");
+			}
+		}
+	}
+
+	public void menu() {
+		Scanner sc = new Scanner(System.in);
+		phongHoc ph = null;
+		phMayTinh phmt = null;
+		int chon = 0;
+		do {
+			System.out.println("1. thêm");
+			System.out.println("2. tìm kiếm theo mã phòng");
+			System.out.println("3. xuất");
+			System.out.println("4. xuất theo phòng đạt chuẩn");
+			System.out.println("5. sắp xếp tăng dần theo dãy nhà");
+			System.out.println("6. sắp xếp giảm dần theo diện tích");
+			System.out.println("7. sắp xếp tăng dần theo số bóng đèn");
+			System.out.println("8. cập nhật số máy tính cho phòng máy tính");
+			System.out.println("9. xóa theo mã phòng");
+			System.out.println("10.tổng số phòng học");
+			System.out.println("11.xuất danh sách có 60 máy");
+			chon = sc.nextInt();
+			sc.nextLine();
+
+			if (chon == 1) {
+
+				int luaChon = 0;
+				System.out.println("1. phòng học lý thuyết");
+				System.out.println("2. phòng học máy tính");
+				System.out.println("3. phòng học thí nghiệm");
+				luaChon = sc.nextInt();
+				do {
+					if (luaChon == 1) {
+						ph = new phLyThuyet();
+						ph.nhap();
+						this.them(ph);
+					} else if (luaChon == 2) {
+						ph = new phMayTinh();
+						ph.nhap();
+						this.them(ph);
+					} else if (luaChon == 3) {
+						ph = new phThiNghiem();
+						ph.nhap();
+						this.them(ph);
+					}
+				} while (luaChon != 1 && luaChon != 2 && luaChon != 3);
+			} else if (chon == 2) {
+				System.out.println("nhập mã phòng");
+				String maPhong = sc.nextLine();
+				this.timKhiBietMaPhong(ph);
+			} else if (chon == 3) {
+				xuat();
+			} else if (chon == 4) {
+				this.xuatCacPhongDatChuan();
+			} else if (chon == 5) {
+				this.sapXepTangDanTheoDayNha();
+			} else if (chon == 6) {
+				this.sapXepGiamDanTheoDienTich();
+			} else if (chon == 7) {
+				this.sapXepTangDanTheoSoBongDen();
+			} else if (chon == 8) {
+				System.out.println("nhập mã phòng");
+				String maPhong = sc.nextLine();
+				this.suaSoMay(phmt);
+			} else if (chon == 9) {
+
+			} else if (chon == 10) {
+				this.inTongPhongHoc();
+			} else if (chon == 11) {
+				this.inPhongCó60May(phmt);
+			} else {
+				System.out.println("nhập lại");
+			}
+		} while (chon != 0);
+	}
+}
