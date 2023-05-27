@@ -1,0 +1,102 @@
+package bai2;
+
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.Scanner;
+
+public class KhachHang implements Serializable {
+	@Override
+	public int hashCode() {
+		return Objects.hash(cmnd);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		KhachHang other = (KhachHang) obj;
+		return Objects.equals(cmnd, other.cmnd);
+	}
+
+	private String cmnd;
+	private String ten;
+	private String gaDen;
+	private double giaTien;
+
+	public KhachHang() {
+
+	}
+
+	public KhachHang(String ma) {
+		this.cmnd = ma;
+	}
+
+	public KhachHang(String cmnd, String ten, String gaDen, double giaTien) {
+
+		this.cmnd = cmnd;
+		this.ten = ten;
+		this.gaDen = gaDen;
+		this.giaTien = giaTien;
+	}
+
+	public String getCmnd() {
+		return cmnd;
+	}
+
+	public void setCmnd(String cmnd) {
+		this.cmnd = cmnd;
+	}
+
+	public String getTen() {
+		return ten;
+	}
+
+	public void setTen(String ten) {
+		this.ten = ten;
+	}
+
+	public String getGaDen() {
+		return gaDen;
+	}
+
+	public void setGaDen(String gaDen) {
+		this.gaDen = gaDen;
+	}
+
+	public double getGiaTien() {
+		return giaTien;
+	}
+
+	public void setGiaTien(double giaTien) {
+		this.giaTien = giaTien;
+	}
+
+	@Override
+	public String toString() {
+		return "KhachHang [cmnd=" + cmnd + ", ten=" + ten + ", gaDen=" + gaDen + ", giaTien=" + giaTien + "]";
+	}
+
+	public void nhap() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("nhập CMND : ");
+		this.setCmnd(sc.nextLine());
+		System.out.print("nhập tên : ");
+		this.setTen(sc.nextLine());
+		System.out.print("nhập ga đến : ");
+		this.setGaDen(sc.nextLine());
+		System.out.println("giá tiền : ");
+		this.setGiaTien(sc.nextDouble());
+	}
+
+	public void capNhat() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("nhập ga : ");
+		this.setGaDen(sc.nextLine());
+		System.out.println("nhập giá tiền : ");
+		this.setGiaTien(sc.nextDouble());
+	}
+}
