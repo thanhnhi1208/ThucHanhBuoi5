@@ -24,19 +24,20 @@ public class phLyThuyet extends phongHoc {
 
 	@Override
 	public String toString() {
-		return super.toString() + "phLyThuyet [mayChieu=" + mayChieu + "]";
+		return super.toString() + "phLyThuyet [mayChieu=" + mayChieu + "đạt chuẩn="+datChuanPhongHoc()+"]";
 	}
 
 	public void nhap() {
 		Scanner sc = new Scanner(System.in);
+		super.nhap();
 		System.out.println("nhập máy chiếu trong phòng");
-		int mayChieu=sc.nextInt();
+		this.mayChieu=sc.nextBoolean();
 	}
 
 	@Override
 	public boolean datChuan() {
-
-		if (getMayChieu() == true && super.datChuanPhongHoc() == true) {
+		
+		if (this.mayChieu == true && super.datChuanPhongHoc() == true) {
 			return true;
 		}
 		return false;
