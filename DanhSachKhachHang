@@ -1,0 +1,172 @@
+package bai2;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+
+public class DanhSachKhachHang {
+	private Queue<KhachHang> list;
+	private ArrayList<KhachHang> listDaMua;
+
+	public DanhSachKhachHang(Queue<KhachHang> list) {
+		this.list = list;
+	}
+
+	public DanhSachKhachHang() {
+		this.list = new LinkedList<KhachHang>();
+		this.listDaMua = new ArrayList<KhachHang>();
+	}
+
+	public DanhSachKhachHang(ArrayList<KhachHang> listDaMua) {
+		this.listDaMua = listDaMua;
+	}
+
+	public void them(KhachHang kh) {
+		for (KhachHang khachHang : list) {
+			if (khachHang.getCmnd().equals(kh.getCmnd())) {
+				khachHang.capNhat();
+				return;
+			}
+		}
+		this.list.offer(kh);
+	}
+
+	public void xuatDanhSachKhachHang() {
+		for (KhachHang khachHang : list) {
+			System.out.println(khachHang);
+		}
+	}
+
+	public void banVe() {
+		this.listDaMua.add(this.list.peek());
+		this.list.poll();
+	}
+
+	public void huyVe() {
+		this.list.poll();
+	}
+
+	public void thongKeTinhHinh() {
+		System.out.println("số khách hàng chờ nhận vé : " + this.list.size());
+		System.out.println("số khách hàng đã nhận vé : " + this.listDaMua.size());
+		double tong = 0;
+		for (KhachHang khachHang : listDaMua) {
+			tong += khachHang.getGiaTien();
+		}
+		System.out.println("tổng tiền đã bán : " + tong);
+	}
+
+	public void luuDanhSachVaoFile(File f) {
+		try {
+			OutputStream os = new FileOutputStream(f);
+			ObjectOutputStream oos = new ObjectOutputStream(os);
+			for (KhachHang kh : list) {
+				oos.writeObject(kh);
+			}
+			oos.flush();
+			oos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void docFile(File f) {
+		try {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+			KhachHang kh;
+			while (true) {
+				try {
+					kh = (KhachHang) ois.readObject();
+					this.list.add(kh);
+				} catch (Exception e) {
+					break;
+				}
+			}
+			ois.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void hienThiDanhSachGaDangChoMua() {
+		ArrayList<String>listGa= new ArrayList<String>();
+		for (KhachHang khachHang : list) {
+			if(listGa.contains(khachHang.getGaDen())==false) {
+				System.out.println("ga :"+khachHang.getGaDen());
+				listGa.add(khachHang.getGaDen());
+			}
+		}
+	}
+	
+	public void hienThiDanhSachGaDangChoMuaVaSoGa() {
+		int i=0;
+		String ten=null;
+		
+		for (KhachHang khachHang : list) {
+			i=0;
+			ten=null;
+			for (KhachHang khachHang1 : list) {
+				if(khachHang1.getGaDen().equals(khachHang.getGaDen()) ) {
+					i++;
+					ten=khachHang.getGaDen();
+				}
+			}
+			System.out.println("ga  "+ten + "số vé : "+i);
+		}
+	}
+
+	public void menu() {
+		Scanner sc = new Scanner(System.in);
+		int chon = 0;
+		KhachHang kh;
+
+		this.docFile(new File("C:\\Users\\ADMIN\\eclipse-workspace\\thucHanh5\\src\\bai2"));
+		
+		do {
+			System.out.println("1. Thêm một khách hàng vào hàng đợi mua vé");
+			System.out.println("2. bán một vé cho khách hàng");
+			System.out.println("3. xuất thông tin khách hàng ");
+			System.out.println("4. hủy một khách hàng ");
+			System.out.println("5. thống kê tình hình bán vé");
+			System.out.println("6. lưu file");
+			System.out.println("7. hiển thị danh sách các ga đang chờ mua về");
+			System.out.println("8. hiển thị danh sách các ga đang chờ mua vé và số vé tương ứng cho ga");
+			
+			
+			chon = sc.nextInt();
+			sc.nextLine();
+
+			if (chon == 1) {
+				kh = new KhachHang();
+				kh.nhap();
+				them(kh);
+			} else if (chon == 2) {
+				banVe();
+			} else if (chon == 3) {
+				xuatDanhSachKhachHang();
+			} else if (chon == 4) {
+				huyVe();
+			} else if (chon == 5) {
+				thongKeTinhHinh();
+			} else if (chon == 6) {
+				String tenFile = "C:\\Users\\ADMIN\\eclipse-workspace\\thucHanh5\\src\\bai2";
+				File f = new File(tenFile);
+				luuDanhSachVaoFile(f);
+			} else if (chon == 7) {
+				hienThiDanhSachGaDangChoMua();
+			} else if (chon == 8) {
+				hienThiDanhSachGaDangChoMuaVaSoGa();
+			} else {
+				System.out.println("nhập lại");
+			}
+		} while (chon != 0);
+	}	
+}
