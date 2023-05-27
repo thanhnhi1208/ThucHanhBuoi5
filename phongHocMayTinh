@@ -24,19 +24,20 @@ public class phMayTinh extends phongHoc {
 
 	@Override
 	public String toString() {
-		return super.toString() + "phMayTinh [mayTinh=" + mayTinh + "]";
+		return super.toString() + "phMayTinh [mayTinh=" + mayTinh + "đạt chuẩn=" + datChuanPhongHoc() + "]";
 	}
 
 	public void nhap() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("nhập số lượt máy tính");
+		super.nhap();
+		System.out.println("nhập số máy tính");
 		this.setMayTinh(sc.nextInt());
 	}
-	
+
 	public void suaSoMayTinh() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("nhập lại số máy tính cần sửa");
-		this.setSoBongDen(sc.nextInt());
+		this.setMayTinh(sc.nextInt());
 	}
 
 	@Override
