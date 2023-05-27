@@ -64,7 +64,7 @@ public abstract class phongHoc {
 		System.out.println("nhập mã phòng");
 		this.setMaPhong(sc.nextLine());
 		System.out.println("nhập dãy nhà");
-		this.setMaPhong(sc.nextLine());
+		this.setDayNha(sc.nextInt());
 		System.out.println("nhập diện tích");
 		this.setDienTich(sc.nextDouble());
 		System.out.println("nhập số bóng đèn");
@@ -74,12 +74,7 @@ public abstract class phongHoc {
 	public boolean datChuanPhongHoc() {
 		if (getDienTich() / getSoBongDen() >= 10) {
 			return true;
-		} else {
-			return false;
 		}
-
+		return false;
 	}
-
-	
-
 }
