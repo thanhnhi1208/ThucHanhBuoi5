@@ -6,7 +6,8 @@ public class phThiNghiem extends phongHoc {
 	private String chuyenNganh;
 	private int sucChua;
 	private boolean coBonRuaKo;
-
+	String tenBon;
+	
 	public phThiNghiem() {
 
 	}
@@ -46,17 +47,27 @@ public class phThiNghiem extends phongHoc {
 	@Override
 	public String toString() {
 		return super.toString() + "phThiNghiem [chuyenNganh=" + chuyenNganh + ", sucChua=" + sucChua + ", coBonRuaKo="
-				+ coBonRuaKo + "]";
+				+ tenBon + "đạt chuẩn=" + datChuanPhongHoc() + "]";
 	}
 
 	public void nhap() {
 		Scanner sc = new Scanner(System.in);
+		super.nhap();
 		System.out.println("nhập chuyên ngành");
 		this.setChuyenNganh(sc.nextLine());
 		System.out.println("nhập sức chứa của phòng");
 		this.setSucChua(sc.nextInt());
-		System.out.println("nhập bồn rửa ");
-		String bonRua = sc.nextLine();
+		sc.nextLine();
+		System.out.println("có bồn rửa : ");
+		this.coBonRuaKo = sc.nextBoolean();
+		sc.nextLine();
+		if(this.coBonRuaKo == true) {
+			System.out.println("nhap ten bon");
+			this.tenBon = sc.nextLine();
+		}else {
+			this.tenBon = "khong co";
+		}
+		
 	}
 
 	@Override
