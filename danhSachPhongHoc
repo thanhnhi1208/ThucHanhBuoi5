@@ -27,13 +27,12 @@ public class danhSach {
 		return true;
 	}
 
-	public boolean timKhiBietMaPhong(phongHoc ph) {
+	public void timKhiBietMaPhong(String ph) {
 		for (phongHoc phongHoc : list) {
-			if (phongHoc.getMaPhong().equals(ph.getMaPhong())) {
-				return true;
+			if (phongHoc.getMaPhong().equals(ph)) {
+				System.out.println(phongHoc);
 			}
 		}
-		return false;
 	}
 
 	public void xuat() {
@@ -58,9 +57,9 @@ public class danhSach {
 			@Override
 			public int compare(phongHoc o1, phongHoc o2) {
 				if (o1.getDayNha() < o2.getDayNha()) {
-					return 1;
-				} else if (o1.getDayNha() > o2.getDayNha()) {
 					return -1;
+				} else if (o1.getDayNha() > o2.getDayNha()) {
+					return 1;
 				} else {
 					return 0;
 				}
@@ -75,9 +74,9 @@ public class danhSach {
 			@Override
 			public int compare(phongHoc p1, phongHoc p2) {
 				if (p1.getDienTich() > p2.getDienTich()) {
-					return 1;
-				} else if (p1.getDienTich() < p2.getDienTich()) {
 					return -1;
+				} else if (p1.getDienTich() < p2.getDienTich()) {
+					return 1;
 				} else {
 					return 0;
 				}
@@ -91,9 +90,9 @@ public class danhSach {
 			@Override
 			public int compare(phongHoc h1, phongHoc h2) {
 				if (h1.getSoBongDen() < h2.getSoBongDen()) {
-					return 1;
-				} else if (h1.getSoBongDen() < h2.getSoBongDen()) {
 					return -1;
+				} else if (h1.getSoBongDen() < h2.getSoBongDen()) {
+					return 1;
 				} else {
 					return 0;
 				}
@@ -101,16 +100,36 @@ public class danhSach {
 		});
 	}
 
-	public void suaSoMay(phMayTinh phmt) {
-		for (phongHoc phongHoc : list) {
-			if (phongHoc.getMaPhong().equals(phmt.getMaPhong())) {
-				phmt.suaSoMayTinh();
+	public void suaSoMay(String maPhong) {
+		for (phongHoc phongHoc1 : list) {
+			if (phongHoc1.getMaPhong().equals(maPhong) && phongHoc1 instanceof phMayTinh) {
+				((phMayTinh) phongHoc1).suaSoMayTinh();
+				return;
 			}
 		}
 		System.out.println("không có mã trong danh sách");
 	}
 
-	public void xoaPhongHoc() {
+	public boolean xoaTheoMaPhong(String maPhong) {
+		for (int i = 0; i < this.list.size(); i++) {
+			if (this.list.get(i).getMaPhong().equals(maPhong)) {
+				Scanner sc = new Scanner(System.in);
+				System.out.println("bạn có muốn xóa hay không ( yes / no )");
+				String a = sc.nextLine();
+				if (a.equalsIgnoreCase("yes")) {
+					this.list.set(i, null);
+					ArrayList<phongHoc> updateList = new ArrayList<phongHoc>();
+					for (phongHoc phongHoc : list) {
+						if (phongHoc != null) {
+							updateList.add(phongHoc);
+						}
+					}
+					this.list = updateList;
+					return true;
+				}
+			}
+		}
+		return false;
 
 	}
 
@@ -118,9 +137,9 @@ public class danhSach {
 		return this.list.size();
 	}
 
-	public void inPhongCó60May(phMayTinh phmt) {
+	public void inPhongCó60May() {
 		for (phongHoc phongHoc : list) {
-			if (phmt.getMayTinh() == 60) {
+			if (((phMayTinh)phongHoc).getMayTinh() == 60) {
 				System.out.println(phongHoc);
 			} else {
 				System.out.println("không có");
@@ -155,6 +174,7 @@ public class danhSach {
 				System.out.println("2. phòng học máy tính");
 				System.out.println("3. phòng học thí nghiệm");
 				luaChon = sc.nextInt();
+				sc.nextLine();
 				do {
 					if (luaChon == 1) {
 						ph = new phLyThuyet();
@@ -173,7 +193,7 @@ public class danhSach {
 			} else if (chon == 2) {
 				System.out.println("nhập mã phòng");
 				String maPhong = sc.nextLine();
-				this.timKhiBietMaPhong(ph);
+				this.timKhiBietMaPhong(maPhong);
 			} else if (chon == 3) {
 				xuat();
 			} else if (chon == 4) {
@@ -187,13 +207,15 @@ public class danhSach {
 			} else if (chon == 8) {
 				System.out.println("nhập mã phòng");
 				String maPhong = sc.nextLine();
-				this.suaSoMay(phmt);
+				this.suaSoMay(maPhong);
 			} else if (chon == 9) {
-
+				System.out.println("nhập mã phòng để xóa");
+				String maPhong=sc.nextLine();
+				this.xoaTheoMaPhong(maPhong);
 			} else if (chon == 10) {
-				this.inTongPhongHoc();
+				System.out.println(this.inTongPhongHoc());
 			} else if (chon == 11) {
-				this.inPhongCó60May(phmt);
+				this.inPhongCó60May();
 			} else {
 				System.out.println("nhập lại");
 			}
